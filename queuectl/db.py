@@ -58,11 +58,13 @@ def fetch_and_claim_pending():
     """
     conn = get_db()
     cur = conn.cursor()
+
     # Select oldest pending job
     cur.execute("""
         SELECT * FROM jobs WHERE state='pending' ORDER BY created_at ASC LIMIT 1
     """)
     row = cur.fetchone()
+
     if not row:
         conn.close()
         return None
@@ -71,12 +73,19 @@ def fetch_and_claim_pending():
     updated_at = datetime.utcnow().isoformat()
     cur.execute("UPDATE jobs SET state='processing', updated_at=? WHERE id=? AND state='pending'",
                 (updated_at, row['id']))
+    
+    if cur.rowcount == 0:
+        # Couldn't claim the job (already taken by another worker)
+        conn.close()
+        return None
+
     conn.commit()
-    # Re-fetch to ensure the claimed state
+    # Re-fetch the claimed job to return updated version
     cur.execute("SELECT * FROM jobs WHERE id=?", (row['id'],))
     claimed = cur.fetchone()
     conn.close()
     return claimed
+
 
 def update_job_state(job_id, state, attempts=None):
     conn = get_db()

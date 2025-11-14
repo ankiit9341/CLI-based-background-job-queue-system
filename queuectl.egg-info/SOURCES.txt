@@ -7,6 +7,7 @@ queuectl/db.py
 queuectl/models.py
 queuectl/utils.py
 queuectl/worker.py
+queuectl/worker_runner.py
 queuectl.egg-info/PKG-INFO
 queuectl.egg-info/SOURCES.txt
 queuectl.egg-info/dependency_links.txt

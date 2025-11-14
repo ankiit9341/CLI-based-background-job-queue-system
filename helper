@@ -1,0 +1,13 @@
+### 📘 CLI Commands Overview
+
+| Command                             | Description                                                                  |
+|-------------------------------------|------------------------------------------------------------------------------|
+| `queuectl enqueue <json>`           | Add a job to the queue (e.g. `{"id":"job1","command":"sleep 5"}`)           |
+| `queuectl worker start --count N`   | Start N background worker processes                                         |
+| `queuectl worker stop`              | Stop all worker processes tracked in `queuectl_workers.pids`                |
+| `queuectl status`                   | Show summary of job states and active workers                               |
+| `queuectl list --state <state>`     | List jobs filtered by state (`pending`, `completed`, `processing`, `dead`)  |
+| `queuectl dlq list`                 | List jobs in the Dead Letter Queue (state = `dead`)                         |
+| `queuectl dlq retry <job_id>`       | Move a DLQ job back to `pending` to retry                                   |
+| `queuectl config set <key> <val>`   | Set configuration value (e.g. `max_retries`, `backoff_base`)                |
+| `queuectl config get <key>`         | Get the current value of a config key                                       |
