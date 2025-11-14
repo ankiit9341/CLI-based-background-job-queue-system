@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: queuectl
+Version: 1.0.0
+Summary: A CLI-based background job queue system for internship assignment
+Author: Ankit Kumar Yadav
+Requires-Python: >=3.8
+Requires-Dist: click==8.1.7
+Dynamic: author
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
